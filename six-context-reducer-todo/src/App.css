@@ -39,3 +39,7 @@ form {
   background-color: darkgray;
   text-decoration: line-through;
 }
+
+.delete {
+  float: right;
+}
