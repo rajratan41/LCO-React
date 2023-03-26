@@ -6,7 +6,28 @@ import "./App.css"
 
 import Axios from "axios"
 
+
+
+
 function App() {
+
+  const [details, setDetails] = useState({})
+
+  const fetchDetails = async () => {
+    const {data} = await Axios.get("https://randomuser.me/api/")
+    console.log("RESPONSE : " , data);
+
+    const details = data.results[0]
+    console.log(details);
+
+    setDetails(details)
+  }
+  
+  useEffect(()=> {
+    fetchDetails()
+  },[])
+
+
   return (
     <div className="App">
      
