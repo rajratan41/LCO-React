@@ -4,6 +4,8 @@ import Axios from "axios";
 import { faker } from "@faker-js/faker";
 import { Container, Row, Col } from "reactstrap";
 
+import CartItem from "./CartItem";
+
 const apiKey = "INSERT_YOUR_KEY_HERE";
 
 const url = "https://api.pexels.com/v1/search?query=laptop&per_page=6&page=1";
@@ -50,7 +52,9 @@ const BuyPage = ({ addInCart }) => {
       <h1 className="text-success text-center">Buy Page</h1>
       <Row>
         {product.map((product) => (
-          <span key={product.id}>{product.productName}</span>
+          <Col md={4} key={product.id}>
+            <CartItem product={product} addInCart={addInCart} />
+          </Col>
         ))}
       </Row>
     </Container>
