@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Axios } from "axios";
+import Axios from "axios";
 
-import { random, commerce } from "faker";
+import { faker } from "@faker-js/faker";
 import { Container, Row, Col } from "reactstrap";
 
 const apiKey = "INSERT_YOUR_KEY_HERE";
@@ -27,13 +27,34 @@ const BuyPage = ({ addInCart }) => {
 
   const fetchPhotos = async () => {
     const { data } = await Axios.get(localUrl);
-  };
 
-  const { photos } = data;
+    const { photos } = data;
+
+    const allProduct = photos.map((photo) => ({
+      mediumImage: photo.src.medium,
+      tinyImage: photo.src.tiny,
+      productName: faker.random.word(),
+      productPrice: faker.commerce.price(),
+      id: faker.datatype.uuid(),
+    }));
+
+    setProduct(allProduct);
+  };
 
   useEffect(() => {
     fetchPhotos();
   }, []);
+
+  return (
+    <Container fluid>
+      <h1 className="text-success text-center">Buy Page</h1>
+      <Row>
+        {product.map((product) => (
+          <span key={product.id}>{product.productName}</span>
+        ))}
+      </Row>
+    </Container>
+  );
 };
 
 export default BuyPage;
