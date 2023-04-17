@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
@@ -19,6 +19,18 @@ function App() {
     }
 
     setCartItem([...cartItem, item]);
+  };
+
+  const buyNow = () => {
+    setCartItem([]);
+
+    toast("Purchase Complete", {
+      type: "success",
+    });
+  };
+
+  const removeItem = (item) => {
+    setCartItem(cartItem.filter((singleItem) => singleItem.id !== item.id));
   };
 
   return <div className="App"></div>;
