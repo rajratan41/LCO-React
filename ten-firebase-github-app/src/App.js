@@ -20,6 +20,7 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import PageNotFound from "./components/PageNotFound";
+import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 import { UserContext } from "./context/UserContext";
@@ -31,6 +32,7 @@ const App = () => {
     <Router>
       <ToastContainer />
       <UserContext.Provider value={{ user, setUser }}>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<Signin />} />
