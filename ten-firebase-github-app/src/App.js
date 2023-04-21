@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
-function App() {
+// Bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
+
+// React Router Dom
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+
+// React Toastify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+
+// Firebase
+import firebase from "firebase/app";
+import "firebase/auth";
+
+// Components
+import Home from "./components/Home";
+import Signup from "./components/Signup";
+import Signin from "./components/Signin";
+import PageNotFound from "./components/PageNotFound";
+
+import { UserContext } from "./context/UserContext";
+
+const App = () => {
+  const [user, setUser] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ToastContainer />
+      <UserContext.Provider value={{ user, setUser }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </UserContext.Provider>
+    </Router>
   );
-}
+};
 
 export default App;
