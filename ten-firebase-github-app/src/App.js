@@ -20,6 +20,7 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import PageNotFound from "./components/PageNotFound";
+import Footer from "./components/Footer";
 
 import { UserContext } from "./context/UserContext";
 
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
+        <Footer />
       </UserContext.Provider>
     </Router>
   );
