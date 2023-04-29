@@ -12,8 +12,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 // Firebase
-import firebase from "firebase/app";
-import "firebase/auth";
+import firebase from "firebase/compat/app"
+import "firebase/compat/auth";
 
 // Components
 import Home from "./components/Home";
@@ -24,6 +24,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 import { UserContext } from "./context/UserContext";
+
+import {firebaseConfig} from "./Config/firebaseConfig"
+// firebase init
+firebase.initializeApp(firebaseConfig)
 
 const App = () => {
   const [user, setUser] = useState(null);
