@@ -1,10 +1,60 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+
+import Axios from "axios";
+
+import { UserContext } from "../context/UserContext";
+
+import { Row, Container, Col, Input, Button, InputGroup } from "reactstrap";
+
+import { toast } from "react-toastify";
+import UserCard from "./UserCard";
+import Repos from "./Repos";
+
+import { Navigate } from "react-router-dom";
 
 const Home = () => {
+  const context = useContext(UserContext);
+
+  const [query, setQuery] = useState("");
+  const [user, setUser] = useState(null);
+
+  const fetchDetails = async () => {
+    try {
+      const { data } = await Axios.get(`https://api.github.com/users/${query}`);
+      setUser(data);
+    } catch (error) {
+      toast("Not able to locate user", { type: "error" });
+    }
+  };
+
+  // Put any Page behind login
+
+  if (!context.user?.uid) {
+    return <Navigate to="/signin" />;
+  }
+
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <Container>
+      <Row className=" mt-3">
+        <Col md="5">
+          <InputGroup>
+            <Input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Please provide the username"
+            />
+            <Button addonType="append">
+              <Button onClick={fetchDetails} color="primary">
+                Fetch User
+              </Button>
+            </Button>
+          </InputGroup>
+          {user ? <UserCard user={user} /> : null}
+        </Col>
+        <Col md="7">{user ? <Repos repos_url={user.repos_url} /> : null}</Col>
+      </Row>
+    </Container>
   );
 };
 
